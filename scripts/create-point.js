@@ -1,11 +1,15 @@
 
-function buscaCidades(event){debugger
+function buscaCidades(event){
+	const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufValue}/municipios`;
+	const cidadeSel  = document.querySelector("select[name=city]");
+	const stateinput = document.querySelector("input[name=state]");
 
-	const cidadeSel = document.querySelector("select[name=city]");
-	const ufParam = event.target.value;
-	const estHidden = document.querySelector("input[name=nomeestado]");
+	const ufValue = event.target.value;
 
-	fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufParam}/municipios`)
+	const indexOfEstadoSelecionado = event.target.selectedIndex;
+	stateinput.value = event.target.options[indexOfEstadoSelecionado].text;
+
+	fetch(url)
 	.then( res => res.json())
 	.then( cidades => {
 		for(let cits of cidades){
@@ -16,9 +20,10 @@ function buscaCidades(event){debugger
 }
 
 function carregarUfs(){
-
+	const url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados`;
 	const ufSelect = document.querySelector("select[name=uf]");
-	fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+
+	fetch(url)
 		.then( res => res.json() )
 		.then( estados => {
 			for(const est of estados){
