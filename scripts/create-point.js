@@ -2,8 +2,10 @@
 function buscaCidades(event){debugger
 
 	const cidadeSel = document.querySelector("select[name=city]");
+	const ufParam = event.target.value;
+	const estHidden = document.querySelector("input[name=nomeestado]");
 
-	fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${event.target.value}/municipios`)
+	fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufParam}/municipios`)
 	.then( res => res.json())
 	.then( cidades => {
 		for(let cits of cidades){
